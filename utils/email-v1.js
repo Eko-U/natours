@@ -3,7 +3,6 @@ const nodemailer = require('nodemailer');
 async function sendEmail(options) {
   // Create a transporter for SMTP
 
-  console.log(process.env.EMAIL_PASSWORD, process.env.EMAIL_USER);
   const transporter = nodemailer.createTransport({
     host: 'sandbox.smtp.mailtrap.io',
     port: process.env.EMAIL_PORT,

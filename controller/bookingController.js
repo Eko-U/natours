@@ -67,7 +67,6 @@ exports.getBooking = async (req, res, next) => {
 };
 
 exports.updateBooking = async (req, res, next) => {
-  console.log(req.body);
   const booking = await Booking.findByIdAndUpdate(
     req.params.bookingId,
     req.body,

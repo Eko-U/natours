@@ -187,7 +187,6 @@ exports.forgotPassword = async (req, res, next) => {
       message: 'Token sent to email',
     });
   } catch (err) {
-    console.log(err);
     user.passwordResetExpires = undefined;
     user.passwordResetToken = undefined;
     await user.save({ validateBeforeSave: false });
@@ -208,8 +207,6 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     .createHash('sha256')
     .update(req.params.token)
     .digest('hex');
-
-  console.log(hashToken);
 
   const user = await User.findOne({ passwordResetToken: hashToken });
 

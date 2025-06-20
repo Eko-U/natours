@@ -97,8 +97,7 @@ exports.getUserId = (req, res, next) => {
 };
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
+ 
   // 1) Create error if user POSTs password data
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -128,7 +127,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-  console.log(req.user.id);
   await User.findByIdAndUpdate(req.user.id, {
     active: false,
   });

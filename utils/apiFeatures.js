@@ -22,8 +22,6 @@ class APIFeatures {
 
   sort() {
     if (this.queryString.sort) {
-      console.log(this.queryString);
-      console.log('hello world');
       const sortBy = this.queryString.sort.split(',').join(' ');
       this.query = this.query.sort(sortBy);
     } else {

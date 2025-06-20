@@ -61,8 +61,6 @@ exports.updateUserData = async (req, res, next) => {
     },
   );
 
-  console.log(req.user.id);
-
   res.status(200).render('account', {
     title: 'Your account details',
     user: user,

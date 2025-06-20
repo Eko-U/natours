@@ -101,7 +101,6 @@ userSchema.methods.changePassword = async function (JWTTimestamp) {
       this.passwordChangeAt.getTime() / 1000,
       10,
     );
-    console.log(timeStampChange, JWTTimestamp);
     return timeStampChange > JWTTimestamp;
   }
 
@@ -118,7 +117,6 @@ userSchema.methods.forgotPassword = async function () {
 
   this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
-  console.log(token);
   return token;
 };
 

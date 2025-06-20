@@ -31,7 +31,6 @@ exports.getAllTours = async (req, res) => {
 
     // 3) FIELD LIMITING
     if (req.query.fields) {
-      console.log(req.query.fields);
       const fields = req.query.fields.split(',').join(' ');
       query = query.select(fields);
     } else {
@@ -113,7 +112,6 @@ exports.createTour = async (req, res) => {
 
 exports.updateTour = async (req, res) => {
   try {
-    console.log(req.body);
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -135,7 +133,6 @@ exports.updateTour = async (req, res) => {
 
 exports.deleteTour = async (req, res) => {
   try {
-    console.log(req.params);
     const tour = await Tour.findByIdAndDelete(req.params.id);
 
     res.status(200).json({

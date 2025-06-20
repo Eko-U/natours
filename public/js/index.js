@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const login = async (email, password) => {
     try {
-      const res = await fetch('http://127.0.0.1:3003/api/v1/users/login', {
+      const res = await fetch('/api/v1/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const data = await res.json();
-      console.log(data);
 
       if (data.status === 'success') {
         showAlert('success', 'Login successfully');
@@ -67,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const logout = async () => {
     try {
-      const res = await fetch('http://127.0.0.1:3003/api/v1/users/logout', {
+      const res = await fetch('/api/v1/users/logout', {
         method: 'GET',
       });
 
@@ -92,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateUserData = async (form) => {
     try {
       settingBtn.textContent = 'Loading...';
-      const res = await fetch('http://127.0.0.1:3003/api/v1/users/updateMe', {
+      const res = await fetch('/api/v1/users/updateMe', {
         method: 'PATCH',
 
         body: form,
@@ -108,8 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const data = await res.json();
-
-      console.log(data);
 
       if (data.status === 'success') {
         showAlert('success', 'Update data successfully');
@@ -135,25 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
     passwordConfirm,
   ) => {
     try {
-      const res = await fetch(
-        'http://127.0.0.1:3003/api/v1/users/updatePassword',
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-
-          body: JSON.stringify({
-            passwordCurrent,
-            password,
-            passwordConfirm,
-          }),
+      const res = await fetch('/api/v1/users/updatePassword', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+
+        body: JSON.stringify({
+          passwordCurrent,
+          password,
+          passwordConfirm,
+        }),
+      });
 
       const data = await res.json();
-
-      console.log(data);
 
       if (data.status === 'success') {
         showAlert('success', 'Update Password successfully');
@@ -177,8 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const email = document.querySelector('#email').value;
       const password = document.querySelector('#password').value;
-
-      console.log(email, password);
 
       login(email, password);
     });
@@ -217,7 +207,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (uploadBtn)
     uploadBtn.addEventListener('click', (e) => {
-      console.log('clicking');
       e.preventDefault();
       const fileInput = document.querySelector('#file-upload');
 
@@ -230,23 +219,16 @@ document.addEventListener('DOMContentLoaded', () => {
   );
 
   const bookTour = async (tourId) => {
-    const res = await fetch(
-      `http://127.0.0.1:3003/api/v1/bookings/checkout-session/${tourId}`,
-      {
-        method: 'GET',
-      },
-    );
+    const res = await fetch(`/api/v1/bookings/checkout-session/${tourId}`, {
+      method: 'GET',
+    });
 
     const session = await res.json();
-
-    console.log(session.session.id);
 
     stripe.redirectToCheckout({
       sessionId: session.session.id,
     });
   };
-
-  console.log(bookTourBtn);
 
   if (bookTourBtn)
     bookTourBtn.addEventListener('click', function (e) {

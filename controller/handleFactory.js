@@ -16,7 +16,6 @@ exports.deleteOne = (Model) =>
 
 exports.updateOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    console.log(req.body);
     if (Model === Review && req.body.tour)
       return next(new APPError("You can't update to newer tour. Thanks", 403));
 
