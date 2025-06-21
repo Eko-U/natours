@@ -21,6 +21,8 @@ const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const compression = require('compression');
 
+const bookingController = require('./controller/bookingController');
+
 const app = express();
 
 // setting the view template engine to use
@@ -60,6 +62,12 @@ const limiter = rateLimit({
 });
 
 app.use('/api', limiter);
+
+app.post(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  bookingController.webhookCheckout,
+);
 
 // Body parser, reading data from body into req.body with the size
 app.use(express.json({ limit: '10kb' }));

@@ -38,14 +38,40 @@ exports.getCheckoutSession = async (req, res, next) => {
   });
 };
 
-exports.createBookingCheckout = async (req, res, next) => {
-  const { tour, user, price } = req.query;
+// exports.createBookingCheckout = async (req, res, next) => {
+//   const { tour, user, price } = req.query;
 
-  if (!tour && !user && !price) return next();
+//   if (!tour && !user && !price) return next();
 
-  await Booking.create({ tour, user, price });
+//   await Booking.create({ tour, user, price });
 
-  res.redirect(req.originalUrl.split('?')[0]);
+//   res.redirect(req.originalUrl.split('?')[0]);
+// };
+
+function createBookingCheckout(session) {
+  console.log(session);
+}
+
+exports.webhookCheckout = async (req, res, next) => {
+  const signature = req.headers['stripe-signature'];
+  let event;
+  try {
+    event = stripe.webhooks.constructorEvent(
+      req.body,
+      signature,
+      process.env.STRIPE_WEBHOOK_KEY,
+    );
+  } catch (err) {
+    return res.status(400).send({
+      status: 'error',
+      message: err.message,
+    });
+  }
+
+  createBookingCheckout(event);
+  res.status(200).json({
+    recieved: true,
+  });
 };
 
 exports.getAllBookings = async (req, res, next) => {

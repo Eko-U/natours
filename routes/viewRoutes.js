@@ -7,13 +7,11 @@ const express = require('express');
 
 const router = express.Router();
 
-router
-  .route('/')
-  .get(
-    bookingController.createBookingCheckout,
-    authController.isLoggedIn,
-    viewsController.getOverview,
-  );
+router.route('/').get(
+  // bookingController.createBookingCheckout,
+  authController.isLoggedIn,
+  viewsController.getOverview,
+);
 
 router
   .route('/tours/:name')
