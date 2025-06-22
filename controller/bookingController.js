@@ -74,7 +74,8 @@ exports.webhookCheckout = async (req, res, next) => {
     });
   }
 
-  if (event.type === 'checkout.session.completed') createBookingCheckout(event);
+  if (event.type === 'checkout.session.completed')
+    createBookingCheckout(event.data.object);
 };
 
 exports.getAllBookings = async (req, res, next) => {
