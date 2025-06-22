@@ -25,7 +25,8 @@ const bookingController = require('./controller/bookingController');
 
 const app = express();
 
-app.enable('trust proxy');
+app.enable('trust proxy', 1);
+
 // setting the view template engine to use
 app.set('view engine', 'pug');
 
@@ -60,6 +61,8 @@ const limiter = rateLimit({
   max: 100,
   windowMs: 60 * 60 * 1000,
   message: 'Too many requests from this IP, please try again in an hour!',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 
 app.use('/api', limiter);
