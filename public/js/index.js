@@ -12,13 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.parentElement.removeChild(el);
   };
 
-  const closeAlert = () => {
-    const el = document.querySelector('.alert-close');
-    el.addEventListener('click', function () {
-      el.parentElement.removeChild(el);
-    });
-  };
-
   const showAlert = (type, msg, time = 5) => {
     hideAlert();
 
@@ -239,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
       bookTour(tourId);
       e.target.textContent = 'Book tour now!';
     });
-});
 
-const docAttribute = document.body.getAttribute('data-alert');
-if (docAttribute.length >= 1) showAlert('success', docAttribute, 20);
+  const docAttribute = document.body.getAttribute('data-alert');
+  if (docAttribute) showAlert('success', docAttribute, 20);
+});
