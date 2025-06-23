@@ -29,7 +29,7 @@ exports.getCheckoutSession = async (req, res, next) => {
     mode: 'payment',
     // success_url: `${req.protocol}://${req.get('host')}/?user=${req.user.id}&tour=${tour.id}&price=${tour.price}`,
 
-    success_url: `${req.protocol}://${req.get('host')}/my-tours `,
+    success_url: `${req.protocol}://${req.get('host')}/my-tours`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
@@ -76,6 +76,10 @@ exports.webhookCheckout = async (req, res, next) => {
 
   if (event.type === 'checkout.session.completed')
     createBookingCheckout(event.data.object);
+
+  res.status(200).send({
+    recived: true,
+  });
 };
 
 exports.getAllBookings = async (req, res, next) => {

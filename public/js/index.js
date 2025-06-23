@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(session);
 
     stripe.redirectToCheckout({
-      sessionId: session.session.id,
+      sessionId: session.id || session.session.id,
     });
   };
 
