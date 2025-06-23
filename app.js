@@ -63,6 +63,7 @@ const limiter = rateLimit({
   message: 'Too many requests from this IP, please try again in an hour!',
   standardHeaders: true,
   legacyHeaders: false,
+  trustProxy: false,
 });
 
 app.use('/api', limiter);
