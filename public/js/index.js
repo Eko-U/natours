@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  const showAlert = (type, msg) => {
+  const showAlert = (type, msg, time = 5) => {
     hideAlert();
 
     const markup = `<div class="alert alert--${type}">
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
 
-    window.setTimeout(hideAlert, 1500);
+    window.setTimeout(hideAlert, time * 1000);
   };
 
   const login = async (email, password) => {
@@ -240,3 +240,6 @@ document.addEventListener('DOMContentLoaded', () => {
       e.target.textContent = 'Book tour now!';
     });
 });
+
+const docAttribute = document.body.getAttribute('data-alert');
+if (docAttribute.length >= 1) showAlert('success', docAttribute, 20);

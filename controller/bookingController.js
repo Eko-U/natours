@@ -29,7 +29,7 @@ exports.getCheckoutSession = async (req, res, next) => {
     mode: 'payment',
     // success_url: `${req.protocol}://${req.get('host')}/?user=${req.user.id}&tour=${tour.id}&price=${tour.price}`,
 
-    success_url: `${req.protocol}://${req.get('host')}/my-tours`,
+    success_url: `${req.protocol}://${req.get('host')}/my-tours?alert=booking`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.tourId,
@@ -118,4 +118,13 @@ exports.deleteBooking = async (req, res, next) => {
     status: 'success',
     message: 'booking deleted successfully',
   });
+};
+
+exports.alertBooking = (req, res, next) => {
+  const { alert } = req.query;
+
+  if (alert === 'booking')
+    res.locals.alert = 'You have successfully booked a tour with us.';
+
+  next();
 };

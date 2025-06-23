@@ -7,6 +7,8 @@ const express = require('express');
 
 const router = express.Router();
 
+router.use(bookingController.alertBooking);
+
 router.route('/').get(
   // bookingController.createBookingCheckout,
   authController.isLoggedIn,
@@ -20,6 +22,7 @@ router
 router.route('/login').get(viewsController.login);
 
 router.route('/me').get(authController.protect, viewsController.getAccount);
+
 router
   .route('/my-tours')
   .get(authController.protect, viewsController.getMyTour);
