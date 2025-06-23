@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const session = await res.json();
+    console.log(session);
 
     stripe.redirectToCheckout({
       sessionId: session.session.id,
